@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Countdown to UK Football</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0033a0, #1a1a1a);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 15px #000;
+    }
+
+    .logo {
+      width: 100px;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    #countdown {
+      display: flex;
+      justify-content: space-around;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    #countdown div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .label {
+      font-size: 1rem;
+      margin-top: 0.3rem;
+      color: #ccc;
+    }
+
+    .footer {
+      font-size: 1rem;
+      color: #ccc;
+      margin-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Kentucky_Wildcats_logo.svg" alt="UK Logo" class="logo" />
+    <h1>Countdown to UK Wildcats Football Kickoff</h1>
+    <div id="countdown">
+      <div><span id="days">0</span><span class="label">Days</span></div>
+      <div><span id="hours">0</span><span class="label">Hours</span></div>
+      <div><span id="minutes">0</span><span class="label">Minutes</span></div>
+      <div><span id="seconds">0</span><span class="label">Seconds</span></div>
+    </div>
+    <p class="footer">Season kicks off August 30, 2025! 🏈 Go Cats!</p>
+  </div>
+
+  <script>
+    const kickoffDate = new Date("August 30, 2025 12:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const gap = kickoffDate - now;
+
+      if (gap < 0) {
+        document.getElementById("countdown").innerHTML = "<h2>The Wildcats are back on the field!</h2>";
+        return;
+      }
+
+      const second = 1000;
+      const minute = second * 60;
+      const hour = minute * 60;
+      const day = hour * 24;
+
+      const days = Math.floor(gap / day);
+      const hours = Math.floor((gap % day) / hour);
+      const minutes = Math.floor((gap % hour) / minute);
+      const seconds = Math.floor((gap % minute) / second);
+
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
