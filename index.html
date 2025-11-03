@@ -2,106 +2,272 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Countdown to UK Football</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Batch Record Review Checklist</title>
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #0033a0, #1a1a1a);
-      color: white;
-      text-align: center;
-      padding: 2rem;
-      margin: 0;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: auto;
-      background-color: rgba(0, 0, 0, 0.3);
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 15px #000;
-    }
-
-    .logo {
-      width: 100px;
-      margin-bottom: 1rem;
-    }
-
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    #countdown {
-      display: flex;
-      justify-content: space-around;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-
-    #countdown div {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(135deg, #f0f4ff, #dce4f7);
+      color: #333;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px 20px;
     }
 
-    .label {
-      font-size: 1rem;
-      margin-top: 0.3rem;
-      color: #ccc;
+    h1 {
+      color: #1e3a8a;
+      margin-bottom: 10px;
+      font-size: 2em;
+      text-align: center;
+    }
+
+    p {
+      color: #555;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .checklist {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 600px;
+      padding: 20px 30px;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #e5e7eb;
+      transition: background 0.2s ease;
+    }
+
+    .step:last-child {
+      border-bottom: none;
+    }
+
+    label {
+      font-size: 1.05em;
+      flex-grow: 1;
+      cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      accent-color: #2563eb;
+      cursor: pointer;
+    }
+
+    input[type="checkbox"]:checked + label {
+      color: #166534;
+      text-decoration: line-through;
+      font-weight: 600;
+    }
+
+    input[type="checkbox"]:checked {
+      animation: pulse 0.3s ease;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    /* Math Section Styling */
+    .math-section {
+      background: #f9fafb;
+      border-radius: 10px;
+      margin: 10px 0 20px 0;
+      padding: 15px;
+      border: 1px solid #e5e7eb;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .math-input {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+    }
+
+    .math-input label {
+      font-size: 0.95em;
+      margin-bottom: 4px;
+      color: #374151;
+    }
+
+    .math-input input {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      font-size: 1em;
+    }
+
+    .math-input input:focus {
+      border-color: #2563eb;
+      outline: none;
+      box-shadow: 0 0 3px rgba(37, 99, 235, 0.4);
+    }
+
+    .results {
+      margin-top: 10px;
+      padding: 10px;
+      background: #eef2ff;
+      border-radius: 8px;
+      color: #1e3a8a;
+      font-size: 0.95em;
+      border: 1px solid #c7d2fe;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .toggle-btn {
+      background: none;
+      border: none;
+      color: #2563eb;
+      font-size: 0.9em;
+      cursor: pointer;
+      text-decoration: underline;
+      margin-left: 10px;
+    }
+
+    .progress-container {
+      margin-top: 25px;
+      background: #e5e7eb;
+      border-radius: 20px;
+      height: 20px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #1d4ed8);
+      border-radius: 20px;
+      transition: width 0.3s ease;
     }
 
     .footer {
-      font-size: 1rem;
-      color: #ccc;
-      margin-top: 1.5rem;
+      margin-top: 25px;
+      text-align: center;
+      color: #6b7280;
+      font-size: 0.9em;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Kentucky_Wildcats_logo.svg" alt="UK Logo" class="logo" />
-    <h1>Countdown to UK Wildcats Football Kickoff</h1>
-    <div id="countdown">
-      <div><span id="days">0</span><span class="label">Days</span></div>
-      <div><span id="hours">0</span><span class="label">Hours</span></div>
-      <div><span id="minutes">0</span><span class="label">Minutes</span></div>
-      <div><span id="seconds">0</span><span class="label">Seconds</span></div>
+  <h1>Batch Record Review Checklist</h1>
+  <p>Follow each step in order to ensure complete and accurate batch documentation.</p>
+
+  <div class="checklist">
+    <div class="step"><input type="checkbox" id="step0"><label for="step0">Step 0 – Clock Work Order In</label></div>
+    <div class="step"><input type="checkbox" id="step1"><label for="step1">Step 1 – Open Product Standard</label></div>
+    <div class="step"><input type="checkbox" id="step2"><label for="step2">Step 2 – Verify Lot/Raw Materials</label></div>
+
+    <div class="step">
+      <input type="checkbox" id="step3">
+      <label for="step3">Step 3 – Verify the Math Makes Sense</label>
+      <button class="toggle-btn" id="toggleMath">Expand</button>
     </div>
-    <p class="footer">Season kicks off August 30, 2025! 🏈 Go Cats!</p>
+
+    <div class="math-section" id="mathSection">
+      <div class="math-input">
+        <label for="totalBags">Total Bag Quantity:</label>
+        <input type="number" id="totalBags" placeholder="Enter total bags">
+      </div>
+      <div class="math-input">
+        <label for="bagsPerCase">Bags per Case:</label>
+        <input type="number" id="bagsPerCase" placeholder="Enter bags per case">
+      </div>
+      <div class="math-input">
+        <label for="bagsPerTest">Bags per Test:</label>
+        <input type="number" id="bagsPerTest" placeholder="Enter bags per test">
+      </div>
+
+      <div class="results" id="resultsBox">
+        Fill in the fields above to calculate expected totals.
+      </div>
+    </div>
+
+    <div class="step"><input type="checkbox" id="step4"><label for="step4">Step 4 – Verify Equipment #s</label></div>
+    <div class="step"><input type="checkbox" id="step5"><label for="step5">Step 5 – Verify All Values Are In Specification</label></div>
+    <div class="step"><input type="checkbox" id="step6"><label for="step6">Step 6 – Verify Complete Signature Page</label></div>
+    <div class="step"><input type="checkbox" id="step7"><label for="step7">Step 7 – Sign/Release Paperwork</label></div>
+    <div class="step"><input type="checkbox" id="step8"><label for="step8">Step 8 – Flip to Release in Batch Record Log</label></div>
+    <div class="step"><input type="checkbox" id="step9"><label for="step9">Step 9 – Clock Work Order Out</label></div>
   </div>
 
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <div class="footer">All steps must be reviewed before releasing batch record.</div>
+
   <script>
-    const kickoffDate = new Date("August 30, 2025 12:00:00").getTime();
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const progressBar = document.getElementById('progressBar');
+    const toggleBtn = document.getElementById('toggleMath');
+    const mathSection = document.getElementById('mathSection');
+    const totalBags = document.getElementById('totalBags');
+    const bagsPerCase = document.getElementById('bagsPerCase');
+    const bagsPerTest = document.getElementById('bagsPerTest');
+    const resultsBox = document.getElementById('resultsBox');
 
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const gap = kickoffDate - now;
+    function updateProgress() {
+      const total = checkboxes.length;
+      const checked = Array.from(checkboxes).filter(c => c.checked).length;
+      const percent = (checked / total) * 100;
+      progressBar.style.width = percent + "%";
+    }
 
-      if (gap < 0) {
-        document.getElementById("countdown").innerHTML = "<h2>The Wildcats are back on the field!</h2>";
+    checkboxes.forEach(cb => cb.addEventListener('change', updateProgress));
+
+    toggleBtn.addEventListener('click', () => {
+      if (mathSection.style.display === 'block') {
+        mathSection.style.display = 'none';
+        toggleBtn.textContent = 'Expand';
+      } else {
+        mathSection.style.display = 'block';
+        toggleBtn.textContent = 'Collapse';
+      }
+    });
+
+    function updateMathResults() {
+      const total = parseFloat(totalBags.value);
+      const perCase = parseFloat(bagsPerCase.value);
+      const perTest = parseFloat(bagsPerTest.value);
+
+      if (isNaN(total) || isNaN(perCase) || isNaN(perTest) || total <= 0 || perCase <= 0 || perTest <= 0) {
+        resultsBox.textContent = "Fill in all fields with positive numbers to calculate results.";
         return;
       }
 
-      const second = 1000;
-      const minute = second * 60;
-      const hour = minute * 60;
-      const day = hour * 24;
+      const totalCases = total / perCase;
+      const totalTests = total / perTest;
 
-      const days = Math.floor(gap / day);
-      const hours = Math.floor((gap % day) / hour);
-      const minutes = Math.floor((gap % hour) / minute);
-      const seconds = Math.floor((gap % minute) / second);
-
-      document.getElementById("days").textContent = days;
-      document.getElementById("hours").textContent = hours;
-      document.getElementById("minutes").textContent = minutes;
-      document.getElementById("seconds").textContent = seconds;
+      resultsBox.innerHTML = `
+        <strong>Results:</strong><br>
+        • Total Cases (Boxes): <strong>${totalCases.toFixed(1)}</strong><br>
+        • Expected Tests: <strong>${totalTests.toFixed(1)}</strong>
+      `;
     }
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+    [totalBags, bagsPerCase, bagsPerTest].forEach(input =>
+      input.addEventListener('input', updateMathResults)
+    );
   </script>
 </body>
 </html>
